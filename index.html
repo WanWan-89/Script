@@ -23,13 +23,110 @@
             <div class="terminal-header">audit_bash.sh</div>
             <pre>
 #!/bin/bash
-# Rapport d'audit de sécurité
-REPORT="audit_$(hostname).txt"
-echo "Analyse en cours..."
-# [Le reste de votre code ici]
+# ==========================================================
+# Script d'audit de sécurité Linux
+# Auteur : ChatGPT
+# Description : Audit utilisateurs, sudo, permissions,
+#               SUID/SGID et tâches cron
+# ==========================================================
+
+REPORT="audit_$(hostname)_$(date +%F).txt"
+
+echo "===== RAPPORT D'AUDIT DE SÉCURITÉ LINUX =====" > "$REPORT"
+echo "Date : $(date)" >> "$REPORT"
+echo "Machine : $(hostname)" >> "$REPORT"
+echo "" >> "$REPORT"
+
+# ----------------------------------------------------------
+# 1. Liste des utilisateurs et groupes
+# ----------------------------------------------------------
+echo "### UTILISATEURS ET GROUPES ###" >> "$REPORT"
+while IFS=: read -r user _ uid gid _ home shell; do
+    groups=$(id -nG "$user" 2>/dev/null)
+    echo "Utilisateur: $user | UID: $uid | Groupes: $groups" >> "$REPORT"
+done < /etc/passwd
+echo "" >> "$REPORT"
+
+# ----------------------------------------------------------
+# 2. Utilisateurs avec privilèges sudo
+# ----------------------------------------------------------
+echo "### UTILISATEURS AVEC PRIVILÈGES SUDO ###" >> "$REPORT"
+
+# Groupe sudo ou wheel
+for grp in sudo wheel; do
+    if getent group "$grp" >/dev/null; then
+        echo "Groupe $grp :" >> "$REPORT"
+        getent group "$grp" | cut -d: -f4 >> "$REPORT"
+    fi
+done
+
+echo "" >> "$REPORT"
+echo "Analyse du fichier sudoers :" >> "$REPORT"
+grep -Ev '^#|^$' /etc/sudoers 2>/dev/null >> "$REPORT"
+
+# ----------------------------------------------------------
+# 3. Permissions dangereuses sur fichiers critiques
+# ----------------------------------------------------------
+echo "" >> "$REPORT"
+echo "### FICHIERS ET RÉPERTOIRES CRITIQUES ###" >> "$REPORT"
+
+CRITICAL_FILES=(
+    "/etc/passwd"
+    "/etc/shadow"
+    "/etc/group"
+    "/etc/sudoers"
+)
+
+for file in "${CRITICAL_FILES[@]}"; do
+    if [ -e "$file" ]; then
+        perms=$(stat -c "%A %a %U:%G" "$file")
+        echo "$file -> $perms" >> "$REPORT"
+    fi
+done
+
+echo "" >> "$REPORT"
+echo "Permissions des répertoires /home :" >> "$REPORT"
+find /home -maxdepth 1 -type d -exec stat -c "%n -> %A %a %U:%G" {} \; >> "$REPORT"
+
+# ----------------------------------------------------------
+# 4. Binaires avec bits SUID / SGID
+# ----------------------------------------------------------
+echo "" >> "$REPORT"
+echo "### BINAIRES AVEC SUID / SGID ###" >> "$REPORT"
+
+find / -xdev \( -perm -4000 -o -perm -2000 \) -type f 2>/dev/null \
+    -exec stat -c "%n -> %A %U:%G" {} \; >> "$REPORT"
+
+# ----------------------------------------------------------
+# 5. Tâches cron suspectes
+# ----------------------------------------------------------
+echo "" >> "$REPORT"
+echo "### TÂCHES CRON ###" >> "$REPORT"
+
+echo "Cron root :" >> "$REPORT"
+crontab -l -u root 2>/dev/null >> "$REPORT"
+
+echo "" >> "$REPORT"
+echo "Cron des utilisateurs :" >> "$REPORT"
+for user in $(cut -d: -f1 /etc/passwd); do
+    crontab -l -u "$user" 2>/dev/null | sed "s/^/[$user] /" >> "$REPORT"
+done
+
+echo "" >> "$REPORT"
+echo "Fichiers dans /etc/cron* :" >> "$REPORT"
+ls -l /etc/cron* >> "$REPORT"
+
+# ----------------------------------------------------------
+# Fin
+# ----------------------------------------------------------
+echo "" >> "$REPORT"
+echo "===== FIN DE L'AUDIT =====" >> "$REPORT"
+
+echo "Audit terminé. Rapport généré : $REPORT"
             </pre>
         </div>
     </div>
 
 </body>
 </html>
+

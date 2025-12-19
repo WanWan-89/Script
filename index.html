@@ -1,61 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Présentation Audit Bash</title>
+    <title>Mon Audit Sécurité</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <header>
-        <div class="container">
-            <h1>Linux Security Auditor</h1>
-            <p class="subtitle">Outil d'audit automatisé en Bash</p>
-        </div>
-    </header>
+    <div class="card">
+        <h1>🛡️ Présentation de mon Audit</h1>
+        <p>Ce script Bash automatise la vérification de la sécurité d'un serveur Linux.</p>
+        
+        <div class="section-title">Points vérifiés :</div>
+        <ul>
+            <li>Utilisateurs & Privilèges</li>
+            <li>Permissions Sudo</li>
+            <li>Fichiers critiques (/etc/shadow, etc.)</li>
+            <li>Tâches Cron suspectes</li>
+        </ul>
 
-    <main class="container">
-        <section class="description">
-            <h2>À quoi sert ce script ?</h2>
-            <p>Ce script permet d'analyser rapidement la sécurité d'un serveur Linux en vérifiant les points critiques :
-            </p>
-            <ul>
-                <li><strong>Gestion des accès :</strong> Liste des utilisateurs et privilèges SUDO.</li>
-                <li><strong>Permissions :</strong> Détection des droits dangereux sur les fichiers sensibles.</li>
-                <li><strong>Persistance :</strong> Analyse des tâches Cron et des binaires SUID.</li>
-            </ul>
-        </section>
-
-        <section class="code-area">
-            <h2>Le Code Source</h2>
-            <div class="terminal">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="file-name">audit_script.sh</span>
-                </div>
-                <pre><code>
+        <div class="terminal-box">
+            <div class="terminal-header">audit_bash.sh</div>
+            <pre>
 #!/bin/bash
-# Script d'audit de sécurité Linux
-# Description : Analyse utilisateurs, sudo, permissions...
-
+# Rapport d'audit de sécurité
 REPORT="audit_$(hostname).txt"
-echo "===== RAPPORT D'AUDIT =====" > "$REPORT"
-
-# [Le reste de ton code bash ici...]
-                </code></pre>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 - Projet Audit Sécurité - Créé avec passion</p>
-    </footer>
+echo "Analyse en cours..."
+# [Le reste de votre code ici]
+            </pre>
+        </div>
+    </div>
 
 </body>
-
 </html>

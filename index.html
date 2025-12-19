@@ -4,100 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rapport d'Audit Sécurité Linux</title>
-    <style>
-        :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-color: #c9d1d9;
-            --accent-color: #58a6ff;
-            --danger-color: #f85149;
-            --success-color: #3fb950;
-            --border-color: #30363d;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        header {
-            border-bottom: 2px solid var(--accent-color);
-            margin-bottom: 30px;
-            padding-bottom: 10px;
-        }
-
-        h1 {
-            color: var(--accent-color);
-            margin-bottom: 5px;
-        }
-
-        .metadata {
-            font-size: 0.9em;
-            color: #8b949e;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-
-        .card-header {
-            background: rgba(88, 166, 255, 0.1);
-            padding: 10px 15px;
-            font-weight: bold;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        pre {
-            padding: 15px;
-            margin: 0;
-            overflow-x: auto;
-            font-family: 'Cascadia Code', 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.5;
-            color: #e6edf3;
-        }
-
-        .highlight-red {
-            color: var(--danger-color);
-            font-weight: bold;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #8b949e;
-            font-size: 0.8em;
-        }
-    </style>
+    <title>Présentation Audit Bash</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <h1>Audit de Sécurité Linux</h1>
-            <div class="metadata">Machine : <strong>{{HOSTNAME}}</strong> | Date : {{DATE}}</div>
-        </header>
 
-        <section id="content">
+    <header>
+        <div class="container">
+            <h1>Linux Security Auditor</h1>
+            <p class="subtitle">Outil d'audit automatisé en Bash</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="description">
+            <h2>À quoi sert ce script ?</h2>
+            <p>Ce script permet d'analyser rapidement la sécurité d'un serveur Linux en vérifiant les points critiques :
+            </p>
+            <ul>
+                <li><strong>Gestion des accès :</strong> Liste des utilisateurs et privilèges SUDO.</li>
+                <li><strong>Permissions :</strong> Détection des droits dangereux sur les fichiers sensibles.</li>
+                <li><strong>Persistance :</strong> Analyse des tâches Cron et des binaires SUID.</li>
+            </ul>
         </section>
 
-        <footer>Généré par Script d'Audit Bash - {{DATE}}</footer>
-    </div>
+        <section class="code-area">
+            <h2>Le Code Source</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="file-name">audit_script.sh</span>
+                </div>
+                <pre><code>
+#!/bin/bash
+# Script d'audit de sécurité Linux
+# Description : Analyse utilisateurs, sudo, permissions...
+
+REPORT="audit_$(hostname).txt"
+echo "===== RAPPORT D'AUDIT =====" > "$REPORT"
+
+# [Le reste de ton code bash ici...]
+                </code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Projet Audit Sécurité - Créé avec passion</p>
+    </footer>
+
 </body>
 
 </html>

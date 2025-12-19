@@ -1,113 +1,55 @@
-/* Couleurs et Variables */
-:root {
-    --primary: #3498db;
-    --dark-bg: #0f172a;
-    --card-bg: #1e293b;
-    --text: #f8fafc;
-    --accent: #10b981;
-}
-
 body {
-    font-family: 'Inter', system-ui, sans-serif;
-    background-color: var(--dark-bg);
-    color: var(--text);
-    margin: 0;
-    line-height: 1.6;
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 50px;
 }
 
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Header */
-header {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    padding: 60px 0;
-    text-align: center;
-    border-bottom: 1px solid #334155;
+.card {
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    max-width: 800px;
+    width: 100%;
 }
 
 h1 {
-    font-size: 2.5rem;
-    color: var(--primary);
-    margin: 0;
+    color: #007bff;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
 }
 
-.subtitle {
-    opacity: 0.7;
-    font-size: 1.1rem;
+.section-title {
+    font-weight: bold;
+    margin-top: 20px;
+    color: #00d4ff;
 }
 
-/* Sections */
-section {
-    margin: 40px 0;
+ul {
+    line-height: 1.8;
 }
 
-h2 {
-    border-left: 4px solid var(--accent);
-    padding-left: 15px;
-    margin-bottom: 20px;
-}
-
-/* Aspect Terminal pour le Code */
-.terminal {
-    background: #000;
+.terminal-box {
+    background-color: #000;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
+    margin-top: 30px;
+    border: 1px solid #444;
 }
 
 .terminal-header {
-    background: #334155;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.dot {
-    height: 12px;
-    width: 12px;
-    border-radius: 50%;
-    margin-right: 8px;
-}
-
-.red {
-    background: #ff5f56;
-}
-
-.yellow {
-    background: #ffbd2e;
-}
-
-.green {
-    background: #27c93f;
-}
-
-.file-name {
-    margin-left: auto;
-    font-size: 0.8rem;
-    opacity: 0.5;
+    background-color: #333;
+    padding: 5px 15px;
     font-family: monospace;
+    font-size: 12px;
+    color: #bbb;
 }
 
 pre {
-    margin: 0;
-    padding: 20px;
-    color: #adbac7;
-    font-family: 'Consolas', monospace;
+    padding: 15px;
+    color: #33ff33; /* Vert Matrix */
+    font-family: 'Courier New', monospace;
     overflow-x: auto;
-}
-
-code {
-    color: var(--accent);
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 40px;
-    font-size: 0.9rem;
-    opacity: 0.5;
 }
